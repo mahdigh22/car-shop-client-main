@@ -32,33 +32,7 @@ const Page = () => (
           <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQikSZ8Wukw5DISb4G95kQcCWs5rFQhDgBOdg&usqp=CAU' width='100%' height='300px'/>
         </Stack>
         <Stack direction='row' sx={{p:3}}>
-        <ItemsCarousel
-        infiniteLoop={false}
-        gutter={12}
-        activePosition={"center"}
-        chevronWidth={60}
-        disableSwipe={false}
-        alwaysShowChevrons={false}
-        numberOfCards={3}
-        slidesToScroll={2}
-        outsideChevron={true}
-        showSlither={false}
-        firstAndLastGutter={false}
-        activeItemIndex={true}
-        requestToChangeActive={value => setaAtive(value)}
-        rightChevron={">"}
-        leftChevron={"<"}
-      >
-        {Array.from(new Array(3)).map((_, i) => (
-          <div
-            key={i}
-            style={{
-              height: 200,
-              background: "url(https://placeimg.com/380/200/nature)"
-            }}
-          />
-        ))}
-      </ItemsCarousel>
+       
 
         </Stack>
 
