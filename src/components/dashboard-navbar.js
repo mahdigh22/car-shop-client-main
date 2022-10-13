@@ -10,12 +10,62 @@ import { Users as UsersIcon } from '../icons/users';
 import { AccountPopover } from './account-popover';
 import { Logo } from './logo';
 import NextLink from 'next/link';
+import { ChartBar as ChartBarIcon } from '../icons/chart-bar';
+import { ShoppingBag as ShoppingBagIcon } from '../icons/shopping-bag';
+import { User as UserIcon } from '../icons/user';
+import { NavItem } from './nav-item';
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
   boxShadow: theme.shadows[3]
 }));
-
+const items = [
+  {
+    href: '/',
+    icon: (<ChartBarIcon fontSize="small" />),
+    title: 'Home'
+  },
+  // {
+  //   href: '/customers',
+  //   icon: (<UsersIcon fontSize="small" />),
+  //   title: 'Customers'
+  // },
+  {
+    href: '/products',
+    icon: (<ShoppingBagIcon fontSize="small" />),
+    title: 'Products'
+  },
+  {
+    href: '/contactUs',
+    icon: (<ShoppingBagIcon fontSize="small" />),
+    title: 'Contact Us'
+  },
+  {
+    href: '/account',
+    icon: (<UserIcon fontSize="small" />),
+    title: 'Account'
+  },
+  // {
+  //   href: '/settings',
+  //   icon: (<CogIcon fontSize="small" />),
+  //   title: 'Settings'
+  // },
+  // {
+  //   href: '/login',
+  //   icon: (<LockIcon fontSize="small" />),
+  //   title: 'Login'
+  // },
+  // {
+  //   href: '/register',
+  //   icon: (<UserAddIcon fontSize="small" />),
+  //   title: 'Register'
+  // },
+  // {
+  //   href: '/404',
+  //   icon: (<XCircleIcon fontSize="small" />),
+  //   title: 'Error'
+  // }
+];
 export const DashboardNavbar = (props) => {
   const { onSidebarOpen, ...other } = props;
   const settingsRef = useRef(null);
@@ -24,14 +74,7 @@ export const DashboardNavbar = (props) => {
   return (
     <>
       <DashboardNavbarRoot
-        sx={{
-          left: {
-            lg: 280
-          },
-          width: {
-            lg: 'calc(100% - 280px)'
-          }
-        }}
+       
         {...other}>
         <Toolbar
           disableGutters
@@ -66,6 +109,9 @@ export const DashboardNavbar = (props) => {
           </a>
         </NextLink>
       </Box>
+      <Box sx={{display:'flex',flexGrow: 1}}>
+     {content}
+      </Box>
           
           
           <Box sx={{ flexGrow: 1 }} />
@@ -74,17 +120,7 @@ export const DashboardNavbar = (props) => {
               <UsersIcon fontSize="small" />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Notifications">
-            <IconButton sx={{ ml: 1 }}>
-              <Badge
-                badgeContent={4}
-                color="primary"
-                variant="dot"
-              >
-                <BellIcon fontSize="small" />
-              </Badge>
-            </IconButton>
-          </Tooltip>
+          
           <Avatar
             onClick={() => setOpenAccountPopover(true)}
             ref={settingsRef}
@@ -108,7 +144,16 @@ export const DashboardNavbar = (props) => {
     </>
   );
 };
-
+const content = (<>
+ {items.map((item) => (
+            <NavItem
+              key={item.title}
+              icon={item.icon}
+              href={item.href}
+              title={item.title}
+            />
+          ))}
+</>)
 DashboardNavbar.propTypes = {
   onSidebarOpen: PropTypes.func
 };

@@ -1,11 +1,29 @@
 import Head from 'next/head';
+import { useState,useEffect } from 'react';
+import axios from 'axios';
 import { Box, Container, Grid, Pagination } from '@mui/material';
 import { products } from '../__mocks__/products';
 import { ProductListToolbar } from '../components/product/product-list-toolbar';
-import { ProductCard } from '../components/product/product-card';
+import  ProductCard  from '../components/product/product-card';
 import { DashboardLayout } from '../components/dashboard-layout';
+Page.getLayout = (page) => (
+  <DashboardLayout>
+    {page}
+  </DashboardLayout>
+);
+export default function Page () {
+  const[Products,setProducts]=useState([]);
+  
 
-const Page = () => (
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/products').then(resp => {
+
+     setProducts(resp.data);
+     console.log(Products)
+  });
+  },[]);
+  return(
   <>
     <Head>
       <title>
@@ -26,15 +44,15 @@ const Page = () => (
             container
             spacing={3}
           >
-            {products.map((product) => (
+            {Products.map((product,index) => (
               <Grid
                 item
-                key={product.id}
+                key={index}
                 lg={4}
                 md={6}
                 xs={12}
               >
-                <ProductCard product={product} />
+                <ProductCard product={product}/>
               </Grid>
             ))}
           </Grid>
@@ -56,11 +74,7 @@ const Page = () => (
     </Box>
   </>
 );
+}
 
-Page.getLayout = (page) => (
-  <DashboardLayout>
-    {page}
-  </DashboardLayout>
-);
 
-export default Page;
+
