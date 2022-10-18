@@ -48,7 +48,7 @@ export default function Page () {
               <Grid
                 item
                 key={index}
-                lg={4}
+                lg={3}
                 md={6}
                 xs={12}
               >
