@@ -3,7 +3,6 @@ import { Avatar, Card, Link, Stack, Typography, Box, Grid, TextField, Button } f
 import LocalPhoneRoundedIcon from '@mui/icons-material/LocalPhoneRounded';
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
-import axios from 'axios';
 
 import { DashboardLayout } from '../components/dashboard-layout';
 import { useState } from 'react';
@@ -36,6 +35,7 @@ let data3 = [
 
 ContactUs.getLayout = (ContactUs) => <DashboardLayout>{ContactUs}</DashboardLayout>;
 export default function ContactUs() {
+  const axios = require('axios');
   const [fullName, setfullNmame] = useState();
   const [emailAddress, setEmailAddress] = useState();
   const [phoneNumber, setPhoneNumber] = useState();
@@ -48,6 +48,7 @@ export default function ContactUs() {
     Message: '',
   });
   const changeHandler = (e) => {
+
     setAllDetails({
       ...allDetails,
       fullName: fullName,
@@ -55,7 +56,7 @@ export default function ContactUs() {
       phoneNumber: phoneNumber,
       Message: Message,
     });
-    axios.post('http://localhost:5000/message', {
+    axios.post('http://localhost:5000/m', {
         allDetails,
       })
       .then(function (response) {
@@ -65,6 +66,7 @@ export default function ContactUs() {
         console.log(error);
       });
   };
+  
   return (
     <>
       <Head>
