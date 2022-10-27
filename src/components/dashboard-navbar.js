@@ -115,11 +115,7 @@ export const DashboardNavbar = (props) => {
           
           
           <Box sx={{ flexGrow: 1 }} />
-          <Tooltip title="Contacts">
-            <IconButton sx={{ ml: 1 }}>
-              <UsersIcon fontSize="small" />
-            </IconButton>
-          </Tooltip>
+         
           
           <Avatar
             onClick={() => setOpenAccountPopover(true)}

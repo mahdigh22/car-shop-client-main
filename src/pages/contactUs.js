@@ -84,9 +84,9 @@ export default function ContactUs() {
         </Stack>
       </Stack>
 
-      <Grid container>
-        <Grid item xs={4}>
-          <Card sx={{ p: 4, width: '90%', boxShadow: 5 }}>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={4}>
+          <Card sx={{ p: 4, width: '100%', boxShadow: 5,height:'280px' }}>
             <Stack spacing={3} justifyContent="space-between" height="100%">
               {data1.map((info, index) => (
                 <ContactInfoSection key={index} {...info} />
@@ -94,8 +94,8 @@ export default function ContactUs() {
             </Stack>
           </Card>
         </Grid>
-        <Grid item xs={4}>
-          <Card sx={{ p: 4, width: '90%', boxShadow: 5 }}>
+        <Grid item xs={12} md={4}>
+          <Card sx={{ p: 4, width: '100%', boxShadow: 5,height:'280px' }}>
             <Stack spacing={3} justifyContent="space-between" height="100%">
               {data2.map((info, index) => (
                 <ContactInfoSection key={index} {...info} />
@@ -103,8 +103,8 @@ export default function ContactUs() {
             </Stack>
           </Card>
         </Grid>
-        <Grid item xs={4}>
-          <Card sx={{ p: 4, width: '90%', boxShadow: 5 }}>
+        <Grid item xs={12} md={4}>
+          <Card sx={{ p: 4, width: '100%', boxShadow: 5,height:'280px' }}>
             <Stack spacing={3} justifyContent="space-between" height="100%">
               {data3.map((info, index) => (
                 <ContactInfoSection key={index} {...info} />
@@ -129,7 +129,7 @@ export default function ContactUs() {
       </Stack>
       <Grid container display="flex" justifyContent="center">
         <Grid item xs={6}>
-          <Card sx={{ width: '100%', p: 3 }}>
+          <Card sx={{ width: '100%', p: 3, boxShadow: 5 }}>
             <Stack direction="column" spacing={2} justifyContent="space-between" height="100%">
               <TextField
                 id="outlined-basic"
