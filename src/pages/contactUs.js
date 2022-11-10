@@ -1,11 +1,12 @@
 import Head from 'next/head';
-import { Avatar, Card, Link, Stack, Typography, Box, Grid, TextField, Button } from '@mui/material';
+import { Avatar, Card, Link, Stack, Typography, Box, Grid, TextField, Button, Alert, Collapse, IconButton, Snackbar } from '@mui/material';
 import LocalPhoneRoundedIcon from '@mui/icons-material/LocalPhoneRounded';
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
-
+import CloseIcon from '@mui/icons-material/Close';
 import { DashboardLayout } from '../components/dashboard-layout';
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 let data1 = [
   {
@@ -36,19 +37,18 @@ let data3 = [
 ContactUs.getLayout = (ContactUs) => <DashboardLayout>{ContactUs}</DashboardLayout>;
 export default function ContactUs() {
   const axios = require('axios');
-  const [fullName, setfullNmame] = useState();
-  const [emailAddress, setEmailAddress] = useState();
-  const [phoneNumber, setPhoneNumber] = useState();
-  const [Message, setMessage] = useState();
-
+  const [fullName, setfullNmame] = useState('');
+  const [emailAddress, setEmailAddress] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [Message, setMessage] = useState('');
+  const [open, setOpen] = useState(false);
   const [allDetails, setAllDetails] = useState({
     fullName: '',
     emailAddress: '',
     phoneNumber: '',
     Message: '',
   });
-  const changeHandler = (e) => {
-
+  useEffect(() => {
     setAllDetails({
       ...allDetails,
       fullName: fullName,
@@ -56,19 +56,44 @@ export default function ContactUs() {
       phoneNumber: phoneNumber,
       Message: Message,
     });
-    axios.post('http://localhost:5000/m', {
+  });
+  const changeHandler = (e) => {
+    setAllDetails({
+      ...allDetails,
+      fullName: fullName,
+      emailAddress: emailAddress,
+      phoneNumber: phoneNumber,
+      Message: Message,
+    });
+    axios
+      .post('http://localhost:5000/m', {
         allDetails,
       })
       .then(function (response) {
-        console.log(response);
+        setOpen(true)
       })
       .catch(function (error) {
         console.log(error);
       });
+      setfullNmame('')
+      setEmailAddress('')
+      setPhoneNumber('')
+      setMessage('')
   };
-  
+  const handleClose = (event,reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
   return (
     <>
+      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+          Message had been sent
+        </Alert>
+      </Snackbar>
       <Head>
         <title>contact | Material Kit</title>
       </Head>
@@ -86,7 +111,7 @@ export default function ContactUs() {
 
       <Grid container spacing={2}>
         <Grid item xs={12} md={4}>
-          <Card sx={{ p: 4, width: '100%', boxShadow: 5,height:'280px' }}>
+          <Card sx={{ p: 4, width: '100%', boxShadow: 5, height: '280px' }}>
             <Stack spacing={3} justifyContent="space-between" height="100%">
               {data1.map((info, index) => (
                 <ContactInfoSection key={index} {...info} />
@@ -95,7 +120,7 @@ export default function ContactUs() {
           </Card>
         </Grid>
         <Grid item xs={12} md={4}>
-          <Card sx={{ p: 4, width: '100%', boxShadow: 5,height:'280px' }}>
+          <Card sx={{ p: 4, width: '100%', boxShadow: 5, height: '280px' }}>
             <Stack spacing={3} justifyContent="space-between" height="100%">
               {data2.map((info, index) => (
                 <ContactInfoSection key={index} {...info} />
@@ -104,7 +129,7 @@ export default function ContactUs() {
           </Card>
         </Grid>
         <Grid item xs={12} md={4}>
-          <Card sx={{ p: 4, width: '100%', boxShadow: 5,height:'280px' }}>
+          <Card sx={{ p: 4, width: '100%', boxShadow: 5, height: '280px' }}>
             <Stack spacing={3} justifyContent="space-between" height="100%">
               {data3.map((info, index) => (
                 <ContactInfoSection key={index} {...info} />
@@ -134,17 +159,19 @@ export default function ContactUs() {
               <TextField
                 id="outlined-basic"
                 label="Full Name"
+                value={fullName}
                 variant="outlined"
-                fullWidth
+                fullWidth required
                 onChange={(e) => {
                   setfullNmame(e.target.value);
                 }}
               />
               <TextField
                 id="outlined-basic"
+                value={emailAddress}
                 label="Email Address"
                 variant="outlined"
-                fullWidth
+                fullWidth required
                 onChange={(e) => {
                   setEmailAddress(e.target.value);
                 }}
@@ -152,9 +179,10 @@ export default function ContactUs() {
               <TextField
                 id="outlined-basic"
                 label="Phone Number"
+                value={phoneNumber}
                 variant="outlined"
                 type="number"
-                fullWidth
+                fullWidth required
                 onChange={(e) => {
                   setPhoneNumber(e.target.value);
                 }}
@@ -163,14 +191,16 @@ export default function ContactUs() {
                 id="outlined-basic"
                 label="Type Your Message"
                 variant="outlined"
+                value={Message}
                 fullWidth
                 multiline
+                required
                 rows={5}
                 onChange={(e) => {
                   setMessage(e.target.value);
                 }}
               />
-              <Button variant="contained" fullWidth onClick={changeHandler}>
+              <Button variant="contained" fullWidth onClick={changeHandler} disabled={fullName&&emailAddress&&phoneNumber&&Message?false:true}>
                 Send Message
               </Button>
             </Stack>
