@@ -42,7 +42,7 @@ DashboardSidebar.propTypes = {
 };
 
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
-  const { pathname } = useLocation();
+  // const { pathname } = useLocation();
 
   const isDesktop = useResponsive('up', 'lg');
 
@@ -51,7 +51,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
       onCloseSidebar();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
+  }, []);
 
   const renderContent = (
     <Scrollbar
