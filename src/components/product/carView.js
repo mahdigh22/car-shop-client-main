@@ -12,7 +12,7 @@ export default function CarView(props) {
         
         <Carousel autoPlay interval="4000" transitionTime="500">
           {image?.map((images, index) => (
-            <div>
+            <div key={index}>
               <img src={image[index]} />
               <p className="legend">My Classic Still 1</p>
             </div>

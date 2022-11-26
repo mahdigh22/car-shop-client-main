@@ -22,7 +22,7 @@ export default function CarInfo() {
       <Grid container spacing={2} sx={{ p: 1 }}>
         <Grid item xs={12}>
           <Stack direction="row" justifyContent="center" spacing={2}>
-            <Typography variant="h5" >{CarName}</Typography>
+            <Typography variant="h5">{CarName}</Typography>
             <Typography variant="h5">{Price}</Typography>
           </Stack>
         </Grid>
@@ -37,7 +37,7 @@ export default function CarInfo() {
             </Stack>
             <Stack direction="column" sx={{ mt: 2 }}>
               <Typography variant="body2">
-                Hello, my name is mahdi ghoussein and I'm interested in this 2016 Land Rover Range Rover Evoque. I'm in
+                Hello, my name is mahdi ghoussein and Im interested in this 2016 Land Rover Range Rover Evoque. Im in
                 the ZIP area. You can reach me by email at mohamadmahdi.ghoussein@gmail.com or by phone at 123-456-7890
                 (optional) Thank you!
               </Typography>

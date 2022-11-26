@@ -10,8 +10,8 @@ export default function Companies(){
     <>
     <Grid container sx={{gap:3,p:3}}>
      
-    {company.map((company) => (
-      <Card sx={{ maxWidth: 140 }}>
+    {company.map((company,index) => (
+      <Card sx={{ maxWidth: 140 }} key={index}>
       <CardMedia
         component="img"
         height="140"
