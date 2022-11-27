@@ -1,6 +1,6 @@
 import { Box, Button, Card, Grid, Typography } from '@mui/material';
 import Iconify from './Iconify';
-import { Logo } from './Logo';
+
 
 export default function Footer() {
   return (

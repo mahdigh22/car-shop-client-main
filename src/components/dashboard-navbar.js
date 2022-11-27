@@ -8,7 +8,7 @@ import { Bell as BellIcon } from '../icons/bell';
 import { UserCircle as UserCircleIcon } from '../icons/user-circle';
 import { Users as UsersIcon } from '../icons/users';
 import { AccountPopover } from './account-popover';
-import { Logo } from './logo';
+
 import NextLink from 'next/link';
 import { ChartBar as ChartBarIcon } from '../icons/chart-bar';
 import { ShoppingBag as ShoppingBagIcon } from '../icons/shopping-bag';
@@ -94,21 +94,16 @@ export const DashboardNavbar = (props) => {
       >
         <MenuIcon fontSize="small" />
       </IconButton>
-          <Box sx={{ p: 1 }}>
+          {/* <Box sx={{ p: 1 }}>
         <NextLink
           href="/"
           passHref
         >
           <a>
-            <Logo
-              sx={{
-                height: 42,
-                width: 62
-              }}
-            />
+           
           </a>
         </NextLink>
-      </Box>
+      </Box> */}
       <Box sx={{display:'flex',flexGrow: 1}}>
      {content}
       </Box>

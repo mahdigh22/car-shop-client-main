@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import Router from 'next/router';
 import NextLink from 'next/link';
 import { Box, CircularProgress, Typography } from '@mui/material';
-import { Logo } from '../../components/logo';
+
 import { useAuthContext } from '../../contexts/auth-context';
 import { auth, ENABLE_AUTH } from '../../lib/auth';
 
@@ -96,21 +96,7 @@ const Page = () => {
           p: 3
         }}
       >
-        <Box sx={{ p: 3 }}>
-          <NextLink
-            href="/"
-            passHref
-          >
-            <a>
-              <Logo
-                sx={{
-                  height: 42,
-                  width: 42
-                }}
-              />
-            </a>
-          </NextLink>
-        </Box>
+        
         <Typography
           sx={{ mb: 1 }}
           variant="h4"
