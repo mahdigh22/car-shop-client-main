@@ -8,7 +8,7 @@ export default function PopularCars() {
   const [Products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/products').then((resp) => {
+    axios.get('https://carshopserver.vercel.app/products').then((resp) => {
       setProducts(resp.data);
       console.log(Products);
     });

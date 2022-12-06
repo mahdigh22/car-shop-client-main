@@ -66,7 +66,7 @@ export default function ContactUs() {
       Message: Message,
     });
     axios
-      .post('http://localhost:5000/m', {
+      .post('https://carshopserver.vercel.app/m', {
         allDetails,
       })
       .then(function (response) {

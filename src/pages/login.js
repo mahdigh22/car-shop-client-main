@@ -9,7 +9,7 @@ export default function Login() {
   const [Data, setData] = React.useState([]);
 
   React.useEffect(() => {
-    axios.get('http://localhost:5000/').then((resp) => {
+    axios.get('https://carshopserver.vercel.app/').then((resp) => {
       setData(resp.data);
       console.log(Data[0]?.email);
     });
