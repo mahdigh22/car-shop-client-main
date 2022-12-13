@@ -5,7 +5,7 @@ import { Box, Button, Card, Stack, Typography } from '@mui/material';
 
 export default function CarView(props) {
   const { image, CarName, Price } = props;
-  console.log(image);
+  // console.log(image);
   return (
     <>
       <Box sx={{width:'100%'}}>

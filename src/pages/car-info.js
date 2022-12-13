@@ -1,13 +1,20 @@
-import { Button, Card, Divider, Grid, Stack, Typography } from '@mui/material';
+import { Button, Card, Divider, Grid, Stack, TextField, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import CarView from 'src/components/product/carView';
 import { DashboardLayout } from '../components/dashboard-layout';
 CarInfo.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 export default function CarInfo() {
+  const axios = require('axios');
   const [CarName, setCarName] = useState();
   const [images, setimages] = useState([]);
   const [Price, setPrice] = useState();
   const [Status, setStatus] = useState();
+  const [model, setModel] = useState();
+  const [id, setId] = useState();
+  const [clientName, setclientName] = useState();
+  const [clientNumber, setclientNumber] = useState();
+  const [clientEmail, setclientEmail] = useState();
+  const [clientZip, setclientZip] = useState();
 
   useEffect(() => {
     const img = JSON.parse(localStorage.getItem('images'));
@@ -15,8 +22,56 @@ export default function CarInfo() {
     setimages(img);
     setPrice(localStorage.getItem('Price'));
     setStatus(localStorage.getItem('Status'));
+    setModel(localStorage.getItem('model'));
+    setId(localStorage.getItem('id'));
   }, []);
-  console.log('test', images);
+
+  const [allDetails, setAllDetails] = useState({
+    clientName: '',
+    clientNumber: '',
+    clientEmail: '',
+    clientZip: '',
+    model: '',
+    CarName: '',
+    id: '',
+  });
+  useEffect(() => {
+    setAllDetails({
+      ...allDetails,
+      clientName: clientName,
+      clientNumber: clientNumber,
+      clientEmail: clientEmail,
+      clientZip: clientZip,
+      model: model,
+      CarName: CarName,
+      id: id,
+    });
+  });
+
+  const sendDeal = (event) => {
+    setAllDetails({
+      ...allDetails,
+      clientName: clientName,
+      clientNumber: clientNumber,
+      clientEmail: clientEmail,
+      clientZip: clientZip,
+      model: model,
+      CarName: CarName,
+      id: id,
+    });
+    console.log('allDetails', allDetails);
+    axios
+      .post('https://carshopserver.vercel.app/deal', {
+        allDetails,
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  
   return (
     <>
       <Grid container spacing={2} sx={{ p: 1 }}>
@@ -32,18 +87,68 @@ export default function CarInfo() {
         <Grid item xs={4}>
           <Card sx={{ p: 2 }}>
             <Stack direction="row" justifyContent="space-between">
-              <Typography variant="subtitle1">Contact Dealer</Typography>
-              <Typography variant="subtitle1">phone number</Typography>
+              <Typography variant="h6">Contact Dealer</Typography>
+              <Typography variant="h6">phone number</Typography>
             </Stack>
-            <Stack direction="column" sx={{ mt: 2 }}>
-              <Typography variant="body2">
-                Hello, my name is mahdi ghoussein and Im interested in this 2016 Land Rover Range Rover Evoque. Im in
-                the ZIP area. You can reach me by email at mohamadmahdi.ghoussein@gmail.com or by phone at 123-456-7890
-                (optional) Thank you!
+            <Stack direction="column" sx={{ mt: 2 }} spacing={2}>
+              <Typography variant="subtitle1">Hello, my name is</Typography>{' '}
+              {
+                <TextField
+                  variant="standard"
+                  size="small"
+                  label="name"
+                  onChange={(e) => {
+                    setclientName(e.target.value);
+                  }}
+                ></TextField>
+              }{' '}
+              <Typography variant="subtitle1">
+                {' '}
+                and Im interested in this {model} {CarName} . Im in the{' '}
               </Typography>
+              {
+                <TextField
+                  variant="standard"
+                  size="small"
+                  label="zip"
+                  onChange={(e) => {
+                    setclientZip(e.target.value);
+                  }}
+                ></TextField>
+              }{' '}
+              <Typography variant="subtitle1">area. You can reach me by email at</Typography>
+              {
+                <TextField
+                  variant="standard"
+                  size="small"
+                  label="email"
+                  onChange={(e) => {
+                    setclientEmail(e.target.value);
+                  }}
+                ></TextField>
+              }{' '}
+              <Typography variant="subtitle1"> or by phone at</Typography>
+              {
+                <TextField
+                  variant="standard"
+                  size="small"
+                  label="Phone"
+                  onChange={(e) => {
+                    setclientNumber(e.target.value);
+                  }}
+                ></TextField>
+              }
+              <Typography variant="subtitle1">(optional) Thank you!</Typography>
             </Stack>
             <Stack direction="row" sx={{ mt: 3 }}>
-              <Button variant="contained" sx={{ width: '100%' }}>
+              <Button
+                variant="contained"
+                sx={{ width: '100%' }}
+                onClick={sendDeal}
+                disabled={
+                  clientName== undefined || clientEmail== undefined || clientNumber== undefined || clientZip== undefined
+                }
+              >
                 Send Deal
               </Button>
             </Stack>

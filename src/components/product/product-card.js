@@ -35,7 +35,7 @@ const style = {
 };
 
 export default function ProductCard({ product }) {
-  const { CarName, Image, Price, colors, Status, priceSale } = product;
+  const {id, CarName, Image, Price, colors, Status, priceSale,model } = product;
   const images = Image.split(',');
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
@@ -44,6 +44,8 @@ export default function ProductCard({ product }) {
     localStorage.setItem('images', JSON.stringify(images));
     localStorage.setItem('Price', Price);
     localStorage.setItem('Status', Status);
+    localStorage.setItem('model', model);
+    localStorage.setItem('id', id);
   };
   return (
     <>

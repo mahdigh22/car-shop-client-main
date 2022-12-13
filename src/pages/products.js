@@ -20,9 +20,9 @@ export default function Page () {
     axios.get('https://carshopserver.vercel.app/products').then(resp => {
 
      setProducts(resp.data);
-     console.log(Products)
+    
   });
-  },[]);
+  },[]); console.log(Products)
   return(
   <>
     <Head>
