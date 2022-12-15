@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import { AppBar, Avatar, Badge, Box, IconButton, Toolbar, Tooltip } from '@mui/material';
+import { AppBar, Avatar, Badge, Box, IconButton, Toolbar, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import { Bell as BellIcon } from '../icons/bell';
@@ -17,13 +17,13 @@ import { NavItem } from './nav-item';
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
-  boxShadow: theme.shadows[3]
+  boxShadow: theme.shadows[3],
 }));
 const items = [
   {
     href: '/',
-    icon: (<ChartBarIcon fontSize="small" />),
-    title: 'Home'
+    icon: <ChartBarIcon fontSize="small" />,
+    title: 'Home',
   },
   // {
   //   href: '/customers',
@@ -32,18 +32,18 @@ const items = [
   // },
   {
     href: '/products',
-    icon: (<ShoppingBagIcon fontSize="small" />),
-    title: 'Products'
+    icon: <ShoppingBagIcon fontSize="small" />,
+    title: 'Products',
   },
   {
     href: '/contactUs',
-    icon: (<ShoppingBagIcon fontSize="small" />),
-    title: 'Contact Us'
+    icon: <ShoppingBagIcon fontSize="small" />,
+    title: 'Contact Us',
   },
   {
     href: '/account',
-    icon: (<UserIcon fontSize="small" />),
-    title: 'Account'
+    icon: <UserIcon fontSize="small" />,
+    title: 'Account',
   },
   // {
   //   href: '/settings',
@@ -70,30 +70,30 @@ export const DashboardNavbar = (props) => {
   const { onSidebarOpen, ...other } = props;
   const settingsRef = useRef(null);
   const [openAccountPopover, setOpenAccountPopover] = useState(false);
-
+  const theme = useTheme();
+  const mediaUp = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <>
-      <DashboardNavbarRoot
-       
-        {...other}>
+      <DashboardNavbarRoot {...other}>
         <Toolbar
           disableGutters
           sx={{
             minHeight: 64,
             left: 0,
-            px: 2
+            px: 2,
           }}
-        ><IconButton
-        onClick={onSidebarOpen}
-        sx={{
-          display: {
-            xs: 'inline-flex',
-            lg: 'none'
-          }
-        }}
-      >
-        <MenuIcon fontSize="small" />
-      </IconButton>
+        >
+          {/* <IconButton
+            onClick={onSidebarOpen}
+            sx={{
+              display: {
+                xs: 'inline-flex',
+                lg: 'none',
+              },
+            }}
+          >
+            <MenuIcon fontSize="small" />
+          </IconButton> */}
           {/* <Box sx={{ p: 1 }}>
         <NextLink
           href="/"
@@ -104,14 +104,20 @@ export const DashboardNavbar = (props) => {
           </a>
         </NextLink>
       </Box> */}
-      <Box sx={{display:'flex',flexGrow: 1}}>
-     {content}
-      </Box>
-          
-          
+          <Box
+            sx={{
+              display: {
+                xs: 'block',
+                sm: 'flex',
+              },
+              flexGrow: { xs: 0, sm: 1 },
+            }}
+          >
+            {content}
+          </Box>
+
           <Box sx={{ flexGrow: 1 }} />
-         
-          
+
           <Avatar
             onClick={() => setOpenAccountPopover(true)}
             ref={settingsRef}
@@ -119,7 +125,7 @@ export const DashboardNavbar = (props) => {
               cursor: 'pointer',
               height: 40,
               width: 40,
-              ml: 1
+              ml: 1,
             }}
             src="/static/images/avatars/avatar_1.png"
           >
@@ -135,16 +141,13 @@ export const DashboardNavbar = (props) => {
     </>
   );
 };
-const content = (<>
- {items.map((item) => (
-            <NavItem
-              key={item.title}
-              icon={item.icon}
-              href={item.href}
-              title={item.title}
-            />
-          ))}
-</>)
+const content = (
+  <>
+    {items.map((item) => (
+      <NavItem key={item.title} icon={item.icon} href={item.href} title={item.title} />
+    ))}
+  </>
+);
 DashboardNavbar.propTypes = {
-  onSidebarOpen: PropTypes.func
+  onSidebarOpen: PropTypes.func,
 };
