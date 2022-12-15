@@ -62,21 +62,19 @@ export default function CarInfo() {
     });
   }, []);
 
-  const isFoundcarname = deals.some((element) => {
-    if (element.carName == localStorage.getItem('CarName')) {
-      return true;
-    }
-
-    return false;
-  });
-  const isFoundname = deals.some((element) => {
-    if (element.clientName == clientName) {
-      return true;
-    }
-
-    return false;
-  });
-
+  const found =
+    deals.filter((obj) => {
+      
+      return obj.carId == id;
+    });
+    const foundip =
+    found.filter((obj) => {
+      
+      return obj.ip == ip;
+    });
+  
+  // console.log(foundip.length)
+  // console.log(foundip.length>0?'true':'false')
   const sendDeal = (event) => {
     setAllDetails({
       ...allDetails,
@@ -102,6 +100,8 @@ export default function CarInfo() {
       });
   };
 
+  // console.log(isFoundIP )
+  // console.log('test',(isFoundcarname || isFoundIP))
   return (
     <>
       <Grid container spacing={2} sx={{ p: 1 }}>
@@ -180,14 +180,14 @@ export default function CarInfo() {
                   clientEmail == undefined ||
                   clientNumber == undefined ||
                   clientZip == undefined ||
-                  (isFoundcarname && isFoundname)
+                  foundip.length>0
                 }
               >
                 Send Deal
               </Button>
             </Stack>{' '}
             <Stack direction="row">
-              {isFoundcarname && isFoundname ? <Typography color={'error'}>already you send a deal</Typography> : ''}
+              { foundip.length>0  ? <Typography color={'error'}>already you send a deal</Typography> : ''}
             </Stack>
             <Divider sx={{ mt: 2, mb: 2 }} />
             <Stack direction="column">

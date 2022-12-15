@@ -47,6 +47,7 @@ export default function ProductCard({ product }) {
     localStorage.setItem('model', model);
     localStorage.setItem('id', id);
   };
+  
   return (
     <>
       <Modal
