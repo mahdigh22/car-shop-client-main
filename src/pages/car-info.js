@@ -16,7 +16,12 @@ export default function CarInfo() {
   const [clientEmail, setclientEmail] = useState();
   const [clientZip, setclientZip] = useState();
   const [deals, setDeals] = useState([]);
-
+  const [ip, setIP] = useState();
+  useEffect(() => {
+    axios.get('https://geolocation-db.com/json/').then((resp) => {
+      setIP(resp.data.IPv4);
+    });
+  }, []);
   useEffect(() => {
     const img = JSON.parse(localStorage.getItem('images'));
     setCarName(localStorage.getItem('CarName'));
@@ -35,7 +40,9 @@ export default function CarInfo() {
     model: '',
     CarName: '',
     id: '',
+    ip: '',
   });
+
   useEffect(() => {
     setAllDetails({
       ...allDetails,
@@ -46,6 +53,7 @@ export default function CarInfo() {
       model: model,
       CarName: CarName,
       id: id,
+      ip: ip,
     });
   });
   useEffect(() => {
@@ -53,6 +61,7 @@ export default function CarInfo() {
       setDeals(resp.data);
     });
   }, []);
+
   const isFoundcarname = deals.some((element) => {
     if (element.carName == localStorage.getItem('CarName')) {
       return true;
@@ -78,6 +87,7 @@ export default function CarInfo() {
       model: model,
       CarName: CarName,
       id: id,
+      ip: ip,
     });
     console.log('allDetails', allDetails);
     axios
@@ -175,10 +185,10 @@ export default function CarInfo() {
               >
                 Send Deal
               </Button>
-             
-            </Stack> <Stack direction="row">
-                {isFoundcarname && isFoundname ? <Typography color={'error'}>already you send a deal</Typography> : ''}
-              </Stack>
+            </Stack>{' '}
+            <Stack direction="row">
+              {isFoundcarname && isFoundname ? <Typography color={'error'}>already you send a deal</Typography> : ''}
+            </Stack>
             <Divider sx={{ mt: 2, mb: 2 }} />
             <Stack direction="column">
               <Typography variant="caption">
