@@ -83,7 +83,7 @@ export const DashboardNavbar = (props) => {
             px: 2,
           }}
         >
-          {/* <IconButton
+          <IconButton
             onClick={onSidebarOpen}
             sx={{
               display: {
@@ -93,7 +93,7 @@ export const DashboardNavbar = (props) => {
             }}
           >
             <MenuIcon fontSize="small" />
-          </IconButton> */}
+          </IconButton>
           {/* <Box sx={{ p: 1 }}>
         <NextLink
           href="/"
@@ -107,8 +107,8 @@ export const DashboardNavbar = (props) => {
           <Box
             sx={{
               display: {
-                xs: 'block',
-                sm: 'flex',
+                xs: 'none',
+                lg: 'flex',
               },
               flexGrow: { xs: 0, sm: 1 },
             }}

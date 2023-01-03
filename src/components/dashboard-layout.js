@@ -34,12 +34,13 @@ export const DashboardLayout = (props) => {
           {children}
         </Box>
       </DashboardLayoutRoot>
-      <DashboardNavbar onSidebarOpen={() => setSidebarOpen(true)} />
+      <DashboardNavbar onSidebarOpen={() => setSidebarOpen(!isSidebarOpen)} />
       <Footer/>
-      {/* <DashboardSidebar
+      <DashboardSidebar
         onClose={() => setSidebarOpen(false)}
         open={isSidebarOpen}
-      /> */}
+        onSidebarOpen={() => setSidebarOpen(!isSidebarOpen)}
+      />
     </AuthGuard>
   );
 };

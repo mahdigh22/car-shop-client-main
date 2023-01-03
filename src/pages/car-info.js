@@ -67,6 +67,7 @@ export default function CarInfo() {
       
       return obj.carId == id;
     });
+    
     const foundip =
     found.filter((obj) => {
       
