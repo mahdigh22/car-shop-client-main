@@ -1,7 +1,19 @@
-import { Button, Card, Divider, Grid, Stack, TextField, Typography } from '@mui/material';
+import { Button, Card, Divider, Grid, ListItemButton, Stack, styled, TextField, Typography } from '@mui/material';
+import Router from 'next/router';
 import { useEffect, useState } from 'react';
 import CarView from 'src/components/product/carView';
 import { DashboardLayout } from '../components/dashboard-layout';
+import {  RouterLink} from 'react-router-dom';
+
+const ListItemStyle = styled((props) => <ListItemButton disableGutters {...props} />)(({ theme }) => ({
+  ...theme.typography.body2,
+  height: 48,
+  position: 'relative',
+  textTransform: 'capitalize',
+  color: theme.palette.text.secondary,
+  borderRadius: theme.shape.borderRadius,
+}));
+
 CarInfo.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 export default function CarInfo() {
   const axios = require('axios');
@@ -99,6 +111,7 @@ export default function CarInfo() {
       .catch(function (error) {
         console.log(error);
       });
+      
   };
 
   // console.log(isFoundIP )
@@ -172,6 +185,7 @@ export default function CarInfo() {
               <Typography variant="subtitle1">(optional) Thank you!</Typography>
             </Stack>
             <Stack direction="row" sx={{ mt: 3 }}>
+            <ListItemStyle component={RouterLink} to={'/products'}>
               <Button
                 variant="contained"
                 sx={{ width: '100%' }}
@@ -186,6 +200,7 @@ export default function CarInfo() {
               >
                 Send Deal
               </Button>
+              </ListItemStyle>
             </Stack>{' '}
             <Stack direction="row">
               { foundip.length>0  ? <Typography color={'error'}>already you send a deal</Typography> : ''}
