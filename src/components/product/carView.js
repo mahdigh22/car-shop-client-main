@@ -1,7 +1,7 @@
 import React from 'react';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
-import { Box, Button, Card, Link, Stack, Typography } from '@mui/material';
+import { Box, Button, Card, Divider, Link, Stack, Typography } from '@mui/material';
 import Iconify from '../Iconify';
 
 export default function CarView(props) {
@@ -18,17 +18,18 @@ export default function CarView(props) {
             </div>
           ))}
         </Carousel>
-        <Stack direction='row' spacing={1}>
-          <Typography variant="h5"  >Vehicle</Typography>
-          <Typography variant="h5" color={'red'}>Overview </Typography>
-          </Stack>
-        <Stack drection="column" spacing={2} sx={{ pl:2,pt:3,width:'70%' }}>
-          
+        <Stack direction="row" spacing={1}>
+          <Typography variant="h5">Vehicle</Typography>
+          <Typography variant="h5" color={'red'}>
+            Overview{' '}
+          </Typography>
+        </Stack>
+        <Stack drection="column" spacing={2} sx={{ pl: 2, pt: 3, width: '70%' }}>
           <Stack direction="row" justifyContent="space-between">
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
               <Iconify
                 icon={'material-symbols:circle'}
-                sx={{color:Details?.ExteriorColor=='undefined'?'black':Details?.ExteriorColor}}
+                sx={{ color: Details?.ExteriorColor == 'undefined' ? 'black' : Details?.ExteriorColor }}
                 width={30}
                 height={30}
               />
@@ -50,8 +51,7 @@ export default function CarView(props) {
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
               <Iconify
                 icon={'material-symbols:circle'}
-              
-                sx={{color:Details?.InteriorColor=='undefined'?'gray':Details?.InteriorColor}}
+                sx={{ color: Details?.InteriorColor == 'undefined' ? 'gray' : Details?.InteriorColor }}
                 width={30}
                 height={30}
               />
@@ -84,18 +84,39 @@ export default function CarView(props) {
               </Box>
             </Box>
           </Stack>
-          <Stack direction="column" >
-            {' '}
-            <Typography variant="h6" sx={{mt:3,fontWeight:400}}>Vehicle History:</Typography>
-            <Stack direction='row' sx={{mt:1}}>
-            <Box>
-            <Typography sx={{fontWeight:600}}>- No Accident or Damage Reported</Typography>
-            <Typography sx={{fontWeight:600}}>- Multiple Owners</Typography>
-            <Link>View the Free CARFAX Report</Link>
+        </Stack>{' '}
+        <Divider sx={{ mt: 1 }} />
+        <Stack direction="column" sx={{ mt: 2, p: 1 }}>
+          {' '}
+          <Stack direction="row" alignItems="center" spacing={2}>
+            <Iconify icon={'material-symbols:history'} width={25} height={25} />
+            <Typography variant="h6" sx={{ fontWeight: 400 }}>
+              Vehicle History:
+            </Typography>
+          </Stack>
+          <Stack direction="row" sx={{ mt: 2 }}>
+            <Box sx={{ ml: 1 }}>
+              <Typography sx={{ fontWeight: 600 }}>- No Accident or Damage Reported</Typography>
+              <Typography sx={{ fontWeight: 600 }}>- Multiple Owners</Typography>
+              <Link>View the Free CARFAX Report</Link>
             </Box>
           </Stack>
+        </Stack>
+        <Divider sx={{ mt: 1 }} />
+        <Stack direction="column" sx={{ mt: 2, p: 1 }}>
+          {' '}
+          <Stack direction="row" alignItems="center" spacing={2}>
+            <Iconify icon={'material-symbols:location-on-outline'} width={25} height={25} />
+            <Typography variant="h6" sx={{ fontWeight: 400 }}>
+              Vehicle Location:
+            </Typography>
           </Stack>
-          
+          <Stack direction="row" sx={{ mt: 2 }}>
+            <Box sx={{ ml: 1 }}>
+              <Typography sx={{ fontWeight: 600 }}>21 Pottstown Pike</Typography>
+              <Typography sx={{ fontWeight: 600 }}>Chester Springs, PA 19425</Typography>
+            </Box>
+          </Stack>
         </Stack>
       </Box>
     </>
