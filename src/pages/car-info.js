@@ -23,6 +23,7 @@ export default function CarInfo() {
   const [Status, setStatus] = useState();
   const [model, setModel] = useState();
   const [id, setId] = useState();
+  const [Details, setDetails] = useState();
   const [clientName, setclientName] = useState();
   const [clientNumber, setclientNumber] = useState();
   const [clientEmail, setclientEmail] = useState();
@@ -42,6 +43,7 @@ export default function CarInfo() {
     setStatus(localStorage.getItem('Status'));
     setModel(localStorage.getItem('model'));
     setId(localStorage.getItem('id'));
+    setDetails(JSON.parse(localStorage.getItem('details')));
   }, []);
 
   const [allDetails, setAllDetails] = useState({
@@ -126,7 +128,7 @@ export default function CarInfo() {
           </Stack>
         </Grid>
         <Grid item xs={8}>
-          <CarView image={images} CarName={CarName} Price={Price} />
+          <CarView image={images} CarName={CarName} Price={Price} Details={Details}/>
         </Grid>
         <Grid item xs={4}>
           <Card sx={{ p: 2 }}>

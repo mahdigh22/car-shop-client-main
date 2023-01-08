@@ -22,7 +22,8 @@ export default function Page () {
      setProducts(resp.data);
     
   });
-  },[]); console.log(Products)
+  },[]); 
+  console.log(Products)
   return(
   <>
     <Head>

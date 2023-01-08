@@ -35,7 +35,19 @@ const style = {
 };
 
 export default function ProductCard({ product }) {
-  const {id, CarName, Image, Price, colors, Status, priceSale,model } = product;
+  const {
+    id,
+    CarName,
+    Image,
+    Price,
+    ExteriorColor,
+    Status,
+    priceSale,
+    model,
+    InteriorColor,
+    Drivetrain,
+    Transmission,
+  } = product;
   const images = Image.split(',');
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
@@ -46,11 +58,13 @@ export default function ProductCard({ product }) {
     localStorage.setItem('Status', Status);
     localStorage.setItem('model', model);
     localStorage.setItem('id', id);
+    
+    localStorage.setItem('details', JSON.stringify (product));
   };
-  
+  console.log('test',product.Transmission);
   return (
     <>
-      <Modal
+      {/* <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -59,7 +73,7 @@ export default function ProductCard({ product }) {
         <Box sx={style}>
           <CarView image={images} CarName={CarName} Price={Price} />
         </Box>
-      </Modal>
+      </Modal> */}
       <Card>
         <Box sx={{ pt: '100%', position: 'relative', cursor: 'pointer' }}>
           {Status === 'true' && (
