@@ -44,7 +44,7 @@ export default function ProductCard({ product }) {
     ExteriorColor,
     Status,
     priceSale,
-    model,
+    CarModel,
     InteriorColor,
     Drivetrain,
     Transmission,
@@ -59,7 +59,7 @@ export default function ProductCard({ product }) {
     localStorage.setItem('images', JSON.stringify(images));
     localStorage.setItem('Price', Price);
     localStorage.setItem('Status', Status);
-    localStorage.setItem('model', model);
+    localStorage.setItem('model', CarModel);
     localStorage.setItem('id', id);
 
     localStorage.setItem('details', JSON.stringify(product));
