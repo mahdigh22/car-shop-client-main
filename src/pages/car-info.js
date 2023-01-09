@@ -1,9 +1,10 @@
-import { Button, Card, Divider, Grid, ListItemButton, Stack, styled, TextField, Typography } from '@mui/material';
+import { Box, Button, Card, Divider, Grid, ListItemButton, Stack, styled, TextField, Typography } from '@mui/material';
 import Router from 'next/router';
 import { useEffect, useState } from 'react';
 import CarView from 'src/components/product/carView';
 import { DashboardLayout } from '../components/dashboard-layout';
-import {  RouterLink} from 'react-router-dom';
+import { RouterLink } from 'react-router-dom';
+import Iconify from 'src/components/Iconify';
 
 const ListItemStyle = styled((props) => <ListItemButton disableGutters {...props} />)(({ theme }) => ({
   ...theme.typography.body2,
@@ -76,18 +77,14 @@ export default function CarInfo() {
     });
   }, []);
 
-  const found =
-    deals.filter((obj) => {
-      
-      return obj.carId == id;
-    });
-    
-    const foundip =
-    found.filter((obj) => {
-      
-      return obj.ip == ip;
-    });
-  
+  const found = deals.filter((obj) => {
+    return obj.carId == id;
+  });
+
+  const foundip = found.filter((obj) => {
+    return obj.ip == ip;
+  });
+
   // console.log(foundip.length)
   // console.log(foundip.length>0?'true':'false')
   const sendDeal = (event) => {
@@ -113,24 +110,50 @@ export default function CarInfo() {
       .catch(function (error) {
         console.log(error);
       });
-      
   };
 
   // console.log(isFoundIP )
   // console.log('test',(isFoundcarname || isFoundIP))
   return (
     <>
-      <Grid container spacing={2} sx={{ p: 1 }}>
-        <Grid item xs={12}>
-          <Stack direction="row" justifyContent="center" spacing={2}>
-            <Typography variant="h5">{CarName}</Typography>
-            <Typography variant="h5">{Price}</Typography>
-          </Stack>
+      <Stack
+        direction="row"
+        justifyContent="center"
+        alignItems='center'
+        spacing={2}
+        sx={{ position: 'fixed', zIndex: 2, backgroundColor: 'white', width: '100%', height: '90px' }}
+      >
+        <Box>
+          <Box sx={{ display: 'flex' }}>
+            <Typography variant="h5" sx={{ textTransform: 'uppercase' }}>
+              {model}
+            </Typography>
+            <Typography variant="h5" sx={{ textTransform: 'uppercase' }}>
+              - {CarName}
+            </Typography>
+            <Typography variant="h5" sx={{ textTransform: 'uppercase',display:'flex',alignItems:'center' }}>
+              - {Price === 'undefined' ? '--' : Price}{' '}
+              {Details?.Currency === 'dollar' ? (
+                <Iconify icon={'bi:currency-dollar'} />
+              ) : Details?.Currency === 'euro' ? (
+                <Iconify icon={'ic:sharp-euro'} />
+              ) : (
+                '_'
+              )}
+            </Typography>
+          </Box>
+          <Box sx={{display:'flex' ,justifyContent:'center',alignItems:'center',gap:1}}>
+          <Iconify icon={'material-symbols:location-on-outline-rounded'} />
+          <Typography sx={{ fontWeight: 500 }} variant="h6">
+            {Details?.Location}
+          </Typography></Box>
+        </Box>
+      </Stack>
+      <Grid container spacing={2} sx={{ p: 1, mt: 2 }}>
+        <Grid item xs={12} lg={8}>
+          <CarView image={images} CarName={CarName} Price={Price} Details={Details} />
         </Grid>
-        <Grid item xs={8}>
-          <CarView image={images} CarName={CarName} Price={Price} Details={Details}/>
-        </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} lg={4}>
           <Card sx={{ p: 2 }}>
             <Stack direction="row" justifyContent="space-between">
               <Typography variant="h6">Contact Dealer</Typography>
@@ -187,25 +210,25 @@ export default function CarInfo() {
               <Typography variant="subtitle1">(optional) Thank you!</Typography>
             </Stack>
             <Stack direction="row" sx={{ mt: 3 }}>
-            <ListItemStyle component={RouterLink} to={'/products'}>
-              <Button
-                variant="contained"
-                sx={{ width: '100%' }}
-                onClick={sendDeal}
-                disabled={
-                  clientName == undefined ||
-                  clientEmail == undefined ||
-                  clientNumber == undefined ||
-                  clientZip == undefined ||
-                  foundip.length>0
-                }
-              >
-                Send Deal
-              </Button>
+              <ListItemStyle component={RouterLink} to={'/products'}>
+                <Button
+                  variant="contained"
+                  sx={{ width: '100%' }}
+                  onClick={sendDeal}
+                  disabled={
+                    clientName == undefined ||
+                    clientEmail == undefined ||
+                    clientNumber == undefined ||
+                    clientZip == undefined ||
+                    foundip.length > 0
+                  }
+                >
+                  Send Deal
+                </Button>
               </ListItemStyle>
             </Stack>{' '}
             <Stack direction="row">
-              { foundip.length>0  ? <Typography color={'error'}>already you send a deal</Typography> : ''}
+              {foundip.length > 0 ? <Typography color={'error'}>already you send a deal</Typography> : ''}
             </Stack>
             <Divider sx={{ mt: 2, mb: 2 }} />
             <Stack direction="column">

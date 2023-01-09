@@ -9,6 +9,7 @@ import { useState } from 'react';
 import CarView from './carView';
 import NextLink from 'next/link';
 import CarInfo from 'src/pages/car-info';
+import Iconify from '../Iconify';
 const ProductImgStyle = styled('img')({
   top: 0,
   width: '100%',
@@ -47,6 +48,8 @@ export default function ProductCard({ product }) {
     InteriorColor,
     Drivetrain,
     Transmission,
+    Currency,
+    Location,
   } = product;
   const images = Image.split(',');
   const [open, setOpen] = useState(false);
@@ -58,10 +61,10 @@ export default function ProductCard({ product }) {
     localStorage.setItem('Status', Status);
     localStorage.setItem('model', model);
     localStorage.setItem('id', id);
-    
-    localStorage.setItem('details', JSON.stringify (product));
+
+    localStorage.setItem('details', JSON.stringify(product));
   };
-  console.log('test',product.Transmission);
+  console.log('test', product.Transmission);
   return (
     <>
       {/* <Modal
@@ -96,29 +99,50 @@ export default function ProductCard({ product }) {
           </NextLink>
         </Box>
 
-        <Stack spacing={2} sx={{ p: 3 }}>
-          <Link to="#" color="inherit" underline="hover">
-            <Typography variant="subtitle2" noWrap>
-              {CarName}
-            </Typography>
-          </Link>
+        <Stack direction="column" spacing={1} sx={{ p: 3 }}>
+          <Typography variant="subtitle2" sx={{ textTransform: 'uppercase', fontWeight: 600 }}>
+            {CarName}
+          </Typography>
 
           <Stack direction="row" alignItems="center" justifyContent="space-between">
             {/* <ColorPreview colors={colors} /> */}
-            <Typography variant="subtitle1">
-              <Typography
-                component="span"
-                variant="body1"
-                sx={{
-                  color: 'text.disabled',
-                  textDecoration: 'line-through',
-                }}
-              >
-                {/* {priceSale && fCurrency(priceSale)} */}
-              </Typography>
-              &nbsp;
-              {Price}
+            <Typography variant="subtitle1" sx={{ display: 'flex', alignItems: 'center' }}>
+              {Currency === 'dollar' ? (
+                <Iconify icon={'bi:currency-dollar'} />
+              ) : Currency === 'euro' ? (
+                <Iconify icon={'ic:sharp-euro'} />
+              ) : (
+                '_'
+              )}
+              {Price === 'undefined' ? '--' : Price}{' '}
             </Typography>
+          </Stack>
+          <Stack direction="row" alignItems="center" justifyContent="space-between">
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Iconify icon={'material-symbols:location-on-outline-rounded'} />
+              <Typography sx={{ fontWeight: 500 }} variant="body2">
+                {Location}
+              </Typography>
+            </Box>
+            <Box>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <Iconify icon={'icon-park-outline:good-one'} width={25} height={25} color={'green'} />
+                <Typography variant="h6" color={'green'} sx={{ fontWeight: 600 }}>
+                  Good Deal
+                </Typography>
+              </Box>
+              {Price=='undefined'|| Currency=='undefined'?'':
+              <Typography variant="caption" sx={{ display: 'flex', alignItems: 'center' }}>
+                {Currency === 'dollar' ? (
+                  <Iconify icon={'bi:currency-dollar'} />
+                ) : Currency === 'euro' ? (
+                  <Iconify icon={'ic:sharp-euro'} />
+                ) : (
+                  '_'
+                )}
+                {Price === 'undefined' ? '--' : (Price * 0.01).toFixed(0)} below market{' '}
+              </Typography>}
+            </Box>
           </Stack>
         </Stack>
       </Card>
