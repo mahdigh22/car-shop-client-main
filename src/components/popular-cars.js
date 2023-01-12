@@ -17,7 +17,7 @@ export default function PopularCars() {
   <>
   <Grid container sx={{gap:3,p:3}}>
     {Products.map((product, index) => (
-      <Grid item key={index} lg={2} xs={12}>
+      <Grid item key={index} lg={3} xs={12}>
         <ProductCard product={product} />
       </Grid>
     ))}</Grid>
