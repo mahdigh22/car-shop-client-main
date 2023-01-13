@@ -30,7 +30,7 @@ let data3 = [
     title: 'Email Us',
     icon: <EmailRoundedIcon style={{ color: 'white' }} />,
     description: "If you're wondering about an order, our products, or our website, send us an email",
-    link: 'info@lexycosmetics.com',
+    link: 'info@CarShop.com',
   },
 ];
 
