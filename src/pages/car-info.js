@@ -87,7 +87,7 @@ export default function CarInfo() {
 
   // console.log(foundip.length)
   // console.log(foundip.length>0?'true':'false')
-  const sendDeal = (event) => {
+  async function sendDeal  (event)  {
     setAllDetails({
       ...allDetails,
       clientName: clientName,
@@ -100,7 +100,8 @@ export default function CarInfo() {
       ip: ip,
     });
     console.log('allDetails', allDetails);
-    axios
+
+   await axios
       .post('https://carshopserver.vercel.app/deal', {
         allDetails,
       })
@@ -119,7 +120,7 @@ export default function CarInfo() {
       <Stack
         direction="row"
         justifyContent="center"
-        alignItems='center'
+        alignItems="center"
         spacing={2}
         sx={{ position: 'fixed', zIndex: 2, backgroundColor: 'white', width: '100%', height: '90px' }}
       >
@@ -131,7 +132,7 @@ export default function CarInfo() {
             <Typography variant="h5" sx={{ textTransform: 'uppercase' }}>
               - {CarName}
             </Typography>
-            <Typography variant="h5" sx={{ textTransform: 'uppercase',display:'flex',alignItems:'center' }}>
+            <Typography variant="h5" sx={{ textTransform: 'uppercase', display: 'flex', alignItems: 'center' }}>
               - {Price === 'undefined' ? '--' : Price}{' '}
               {Details?.Currency === 'dollar' ? (
                 <Iconify icon={'bi:currency-dollar'} />
@@ -142,11 +143,12 @@ export default function CarInfo() {
               )}
             </Typography>
           </Box>
-          <Box sx={{display:'flex' ,justifyContent:'center',alignItems:'center',gap:1}}>
-          <Iconify icon={'material-symbols:location-on-outline-rounded'} />
-          <Typography sx={{ fontWeight: 500 }} variant="h6">
-            {Details?.Location}
-          </Typography></Box>
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1 }}>
+            <Iconify icon={'material-symbols:location-on-outline-rounded'} />
+            <Typography sx={{ fontWeight: 500 }} variant="h6">
+              {Details?.Location}
+            </Typography>
+          </Box>
         </Box>
       </Stack>
       <Grid container spacing={2} sx={{ p: 1, mt: 2 }}>

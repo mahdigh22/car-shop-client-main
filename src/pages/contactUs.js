@@ -57,7 +57,7 @@ export default function ContactUs() {
       Message: Message,
     });
   });
-  const changeHandler = (e) => {
+  async function changeHandler  (e)  {
     setAllDetails({
       ...allDetails,
       fullName: fullName,
@@ -65,7 +65,7 @@ export default function ContactUs() {
       phoneNumber: phoneNumber,
       Message: Message,
     });
-    axios
+    await axios
       .post('https://carshopserver.vercel.app/m', {
         allDetails,
       })
