@@ -42,14 +42,14 @@ export default function ShopProductSort(props) {
           {sort}
         </Typography>
       </Button>
-      <Menu
+      <Menfu
         keepMounted
         anchorEl={open}
         open={Boolean(open)}
         onClose={handleClose}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        value
+       
       >
         {SORT_BY_OPTIONS.map((option) => (
           <MenuItem
