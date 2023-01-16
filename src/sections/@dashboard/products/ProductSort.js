@@ -42,7 +42,7 @@ export default function ShopProductSort(props) {
           {sort}
         </Typography>
       </Button>
-      <Menfu
+      <Menu
         keepMounted
         anchorEl={open}
         open={Boolean(open)}
