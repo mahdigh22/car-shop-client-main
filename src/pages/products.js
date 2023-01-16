@@ -39,7 +39,7 @@ export default function Page() {
     });
   }
   async function getcarsSearch(event) {
-    console.log('eeee', event.length);
+    
     event.length > 0
       ? await axios.get('https://carshopserver.vercel.app/Searchproducts', { params: { event } }).then((resp) => {
           setProducts(resp.data);
