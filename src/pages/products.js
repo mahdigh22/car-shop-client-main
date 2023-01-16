@@ -3,10 +3,11 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Box, Container, Grid, Pagination, Stack } from '@mui/material';
 import { products } from '../__mocks__/products';
-import { ProductListToolbar } from '../components/product/product-list-toolbar';
+
 import ProductCard from '../components/product/product-card';
 import { DashboardLayout } from '../components/dashboard-layout';
 import { ProductSort } from 'src/sections/@dashboard/products';
+import ProductListToolbar from 'src/components/product/product-list-toolbar';
 Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 export default function Page() {
   const [Products, setProducts] = useState([]);
@@ -17,6 +18,7 @@ export default function Page() {
       setProducts(resp.data);
     });
   }, []);
+
   async function getcars() {
     await axios.get('https://carshopserver.vercel.app/products').then((resp) => {
       setProducts(resp.data);
@@ -29,11 +31,21 @@ export default function Page() {
       //  console.log(Products[5].Image.data)
     });
   }
+
   async function getcarsLowHigh() {
     await axios.get('https://carshopserver.vercel.app/LowHighproducts').then((resp) => {
       setProducts(resp.data);
       //  console.log(Products[5].Image.data)
     });
+  }
+  async function getcarsSearch(event) {
+    console.log('eeee', event.length);
+    event.length > 0
+      ? await axios.get('https://carshopserver.vercel.app/Searchproducts', { params: { event } }).then((resp) => {
+          setProducts(resp.data);
+          console.log(resp.data);
+        })
+      : getcars();
   }
   const handleHighLow = () => {
     getcarsHighLow();
@@ -47,6 +59,10 @@ export default function Page() {
   const handleNewest = () => {
     getcars();
     setSort('Newest');
+  };
+  const handleSearch = (event) => {
+    getcarsSearch(event.target.value);
+    // console.log(event.target.value)
   };
   console.log(Products);
   return (
@@ -62,7 +78,7 @@ export default function Page() {
         }}
       >
         <Container maxWidth={false}>
-          <ProductListToolbar />
+          <ProductListToolbar handleSearch={handleSearch} />
           <Stack directio="row" justifyContent="flex-end" sx={{ width: '100%' }}>
             <ProductSort
               handleHighLow={handleHighLow}
