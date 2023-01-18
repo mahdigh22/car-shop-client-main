@@ -1,5 +1,5 @@
 import { Box, Button, Card, Divider, Grid, ListItemButton, Stack, styled, TextField, Typography } from '@mui/material';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import CarView from 'src/components/product/carView';
 import { DashboardLayout } from '../components/dashboard-layout';
@@ -31,6 +31,7 @@ export default function CarInfo() {
   const [clientZip, setclientZip] = useState();
   const [deals, setDeals] = useState([]);
   const [ip, setIP] = useState();
+  
   useEffect(() => {
     axios.get('https://geolocation-db.com/json/').then((resp) => {
       setIP(resp.data.IPv4);
@@ -87,7 +88,7 @@ export default function CarInfo() {
 
   // console.log(foundip.length)
   // console.log(foundip.length>0?'true':'false')
-  async function sendDeal  (event)  {
+  async function sendDeal(event) {
     setAllDetails({
       ...allDetails,
       clientName: clientName,
@@ -101,17 +102,45 @@ export default function CarInfo() {
     });
     console.log('allDetails', allDetails);
 
-   await axios
+    await axios
       .post('https://carshopserver.vercel.app/deal', {
         allDetails,
       })
       .then(function (response) {
-        console.log(response);
+        sendUser();
       })
       .catch(function (error) {
         console.log(error);
       });
-  };
+  }
+  async function sendUser() {
+    setAllDetails({
+      ...allDetails,
+      clientName: clientName,
+      clientNumber: clientNumber,
+      clientEmail: clientEmail,
+      clientZip: clientZip,
+      model: model,
+      CarName: CarName,
+      id: id,
+      ip: ip,
+    });
+    console.log('allDetails', allDetails);
+
+    await axios
+      .post('https://carshopserver.vercel.app/InsertUser', {
+        allDetails,
+      })
+      .then(function (response) {
+       
+        window.location.reload();
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+     
+    
+  }
 
   // console.log(isFoundIP )
   // console.log('test',(isFoundcarname || isFoundIP))
@@ -212,11 +241,13 @@ export default function CarInfo() {
               <Typography variant="subtitle1">(optional) Thank you!</Typography>
             </Stack>
             <Stack direction="row" sx={{ mt: 3 }}>
-              <ListItemStyle component={RouterLink} to={'/products'}>
+              <ListItemStyle>
                 <Button
                   variant="contained"
                   sx={{ width: '100%' }}
-                  onClick={sendDeal}
+                  onClick={() => {
+                    sendDeal();
+                  }}
                   disabled={
                     clientName == undefined ||
                     clientEmail == undefined ||
