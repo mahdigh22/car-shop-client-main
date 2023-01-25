@@ -30,8 +30,9 @@ export default function CarInfo() {
   const [clientEmail, setclientEmail] = useState();
   const [clientZip, setclientZip] = useState();
   const [deals, setDeals] = useState([]);
+  const [users, setUsers] = useState([]);
   const [ip, setIP] = useState();
-  
+
   useEffect(() => {
     axios.get('https://geolocation-db.com/json/').then((resp) => {
       setIP(resp.data.IPv4);
@@ -76,6 +77,9 @@ export default function CarInfo() {
     axios.get('https://carshopserver.vercel.app/sendDeals').then((resp) => {
       setDeals(resp.data);
     });
+    axios.get('https://carshopserver.vercel.app/users').then((resp) => {
+      setUsers(resp.data);
+    });
   }, []);
 
   const found = deals.filter((obj) => {
@@ -85,8 +89,20 @@ export default function CarInfo() {
   const foundip = found.filter((obj) => {
     return obj.ip == ip;
   });
+  const founduser = users.filter((obj) => {
+    return obj.status == 'Banned';
+  });
+  const founduser2 = founduser.filter((obj) => {
+    return obj.clientName == clientName;
+  });
+  const foundemail = founduser.filter((obj) => {
+    return obj.clientEmail == clientEmail;
+  });
+  const foundnumber= founduser.filter((obj) => {
+    return obj.clientNumber == clientNumber;
+  });
 
-  // console.log(foundip.length)
+  // console.log(founduser2)
   // console.log(foundip.length>0?'true':'false')
   async function sendDeal(event) {
     setAllDetails({
@@ -132,14 +148,11 @@ export default function CarInfo() {
         allDetails,
       })
       .then(function (response) {
-       
         window.location.reload();
       })
       .catch(function (error) {
         console.log(error);
       });
-     
-    
   }
 
   // console.log(isFoundIP )
@@ -253,7 +266,9 @@ export default function CarInfo() {
                     clientEmail == undefined ||
                     clientNumber == undefined ||
                     clientZip == undefined ||
-                    foundip.length > 0
+                    foundip.length > 0 ||
+                    founduser2.length > 0 ||
+                    foundemail.length > 0||foundnumber.length>0
                   }
                 >
                   Send Deal
@@ -262,6 +277,11 @@ export default function CarInfo() {
             </Stack>{' '}
             <Stack direction="row">
               {foundip.length > 0 ? <Typography color={'error'}>already you send a deal</Typography> : ''}
+              {founduser2.length > 0 || foundemail.length > 0||foundnumber.length>0 ? (
+                <Typography color={'error'}>You are blocked</Typography>
+              ) : (
+                ''
+              )}
             </Stack>
             <Divider sx={{ mt: 2, mb: 2 }} />
             <Stack direction="column">
