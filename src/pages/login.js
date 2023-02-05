@@ -8,10 +8,9 @@ import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/
 export default function Login() {
   const [Data, setData] = React.useState([]);
 
- 
-
   const [Email, setEmail] = React.useState();
   const [Pass, setPass] = React.useState();
+  const [loadingButton, setloadingButton] = React.useState(false);
   const saveEmail = (event) => {
     setEmail(event.target.value);
   };
@@ -37,21 +36,21 @@ export default function Login() {
           .then(function (response) {
             if (response) {
               localStorage.setItem('token', JSON.stringify(response));
-              Router.push('/').catch(console.error)
+              setloadingButton(true);
+              Router.push('/').catch(console.error);
+
               // window.location.reload();
             } else {
-              Router.push('/login').catch(console.error)
+              Router.push('/login').catch(console.error);
             }
           });
       })
       .catch(function (error) {
-        Router.push('/login').catch(console.error)
+        Router.push('/login').catch(console.error);
         alert('Oh wrong Email or Password!');
       });
   }
 
-
- 
   async function CheckIfValid() {
     await getData();
   }
@@ -98,9 +97,15 @@ export default function Login() {
             onChange={savePass}
           />
           <Box sx={{ py: 2 }}>
-            <Button color="primary" fullWidth size="large" type="submit" variant="contained" onClick={CheckIfValid}>
-              Sign In Now
-            </Button>
+            {loadingButton ? (
+              <Button color="primary" fullWidth size="large" type="submit" variant="contained" disabled onClick={CheckIfValid}>
+               loading
+              </Button>
+            ) : (
+              <Button color="primary" fullWidth size="large" type="submit" variant="contained" onClick={CheckIfValid}>
+                Sign In Now
+              </Button>
+            )}
           </Box>
           <Typography color="textSecondary" variant="body2">
             Don&apos;t have an account?{' '}
