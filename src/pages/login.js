@@ -8,12 +8,7 @@ import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/
 export default function Login() {
   const [Data, setData] = React.useState([]);
 
-  React.useEffect(() => {
-    axios.get('https://carshopserver.vercel.app/').then((resp) => {
-      setData(resp.data);
-      console.log(Data[0]?.email);
-    });
-  }, []);
+ 
 
   const [Email, setEmail] = React.useState();
   const [Pass, setPass] = React.useState();
@@ -23,13 +18,43 @@ export default function Login() {
   const savePass = (event) => {
     setPass(event.target.value);
   };
-  const CheckIfValid = (event) => {
-    {
-      Data[0]?.email == Email && Data[0]?.password == Pass
-        ? Router.push('/').catch(console.error)
-        : Router.push('/login').catch(console.error);
-    }
-  };
+  async function getData() {
+    await axios
+      .post('https://carshopserver.vercel.app/api/auth', {
+        Email,
+        Pass,
+      })
+      .then(async function (response) {
+        console.log(response);
+        await axios
+          .get('https://carshopserver.vercel.app/user/validateToken', {
+            params: { token: response?.data },
+            headers: {
+              Authorization: `Bearer ${response?.data}`,
+              'X-Custom-Header': 'foobar',
+            },
+          })
+          .then(function (response) {
+            if (response) {
+              localStorage.setItem('token', JSON.stringify(response));
+              Router.push('/').catch(console.error)
+              // window.location.reload();
+            } else {
+              Router.push('/login').catch(console.error)
+            }
+          });
+      })
+      .catch(function (error) {
+        Router.push('/login').catch(console.error)
+        alert('Oh wrong Email or Password!');
+      });
+  }
+
+
+ 
+  async function CheckIfValid() {
+    await getData();
+  }
   return (
     <>
       <Head>
