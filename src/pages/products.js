@@ -8,20 +8,24 @@ import ProductCard from '../components/product/product-card';
 import { DashboardLayout } from '../components/dashboard-layout';
 import { ProductSort } from 'src/sections/@dashboard/products';
 import ProductListToolbar from 'src/components/product/product-list-toolbar';
+import Loading from 'src/components/loading';
 Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 export default function Page() {
   const [Products, setProducts] = useState([]);
   const [sort, setSort] = useState('Newest');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios.get('https://carshopserver.vercel.app/products').then((resp) => {
       setProducts(resp.data);
+      setLoading(false)
     });
   }, []);
 
   async function getcars() {
     await axios.get('https://carshopserver.vercel.app/products').then((resp) => {
       setProducts(resp.data);
+      setLoading(false)
       //  console.log(Products[5].Image.data)
     });
   }
@@ -64,7 +68,18 @@ export default function Page() {
     getcarsSearch(event.target.value);
     // console.log(event.target.value)
   };
-  console.log(Products);
+
+
+  if (loading) {
+    return (
+      // <Container maxWidth={false}>
+          <Box sx={{ height: '70vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Loading />
+          </Box>
+        // </Container>
+      
+    );
+  }
   return (
     <>
       <Head>
