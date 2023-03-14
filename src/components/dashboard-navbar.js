@@ -36,6 +36,11 @@ const items = [
     title: 'Products',
   },
   {
+    href: '/auction',
+    icon: (<ShoppingBagIcon fontSize="small" />),
+    title: 'Auction'
+  },
+  {
     href: '/contactUs',
     icon: <ShoppingBagIcon fontSize="small" />,
     title: 'Contact Us',

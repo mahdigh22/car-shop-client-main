@@ -35,17 +35,18 @@ const items = [
     href: '/contactUs',
     icon: (<ShoppingBagIcon fontSize="small" />),
     title: 'Contact Us'
+  }, 
+  {
+    href: '/auction',
+    icon: (<CogIcon fontSize="small" />),
+    title: 'Auction'
   },
   {
     href: '/account',
     icon: (<UserIcon fontSize="small" />),
     title: 'Account'
   },
-  // {
-  //   href: '/settings',
-  //   icon: (<CogIcon fontSize="small" />),
-  //   title: 'Settings'
-  // },
+ 
   // {
   //   href: '/login',
   //   icon: (<LockIcon fontSize="small" />),

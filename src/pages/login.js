@@ -98,7 +98,7 @@ export default function Login() {
           />
           <Box sx={{ py: 2 }}>
             {loadingButton ? (
-              <Button color="primary" fullWidth size="large" type="submit" variant="contained" disabled onClick={CheckIfValid}>
+              <Button  fullWidth size="large" type="submit" variant="contained" disabled onClick={()=>{}}>
                loading
               </Button>
             ) : (
