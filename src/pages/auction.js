@@ -29,7 +29,7 @@ export default function Auction() {
   const [loading, setLoading] = useState(true);
   console.log('pro', Products);
   async function getproductsformfirebase() {
-    await axios.get('https://car-shop-cb0a5-default-rtdb.firebaseio.com/1/-NQRiRvuh0Rno_msM_lg.json').then((resp) => {
+    await axios.get('https://carshopserver.vercel.app/products').then((resp) => {
       setProducts(resp?.data);
       setLoading(false);
     });
@@ -65,7 +65,8 @@ export default function Auction() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {Products.map((row) => (
+              {Products.filter(row => row.auction ==true).map(row => (
+               
                   <TableRow key={row.CarName}>
                     <TableCell component="th" scope="row">
                       <img src={row.Image} width={145} height={145} />
