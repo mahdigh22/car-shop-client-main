@@ -14,6 +14,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Iconify from 'src/components/Iconify';
+import Loading from 'src/components/loading';
 const ProductImgStyle = styled('img')({
   top: 0,
   width: '100%',
@@ -37,6 +38,15 @@ export default function Auction() {
   useEffect(() => {
     getproductsformfirebase();
   }, []);
+  if (loading) {
+    return (
+      // <Container maxWidth={false}>
+      <Box sx={{ height: '70vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Loading />
+      </Box>
+      // </Container>
+    );
+  }
   return (
     <>
       <Head>
@@ -52,7 +62,7 @@ export default function Auction() {
         <Container maxWidth={false}>
           <Typography variant="h4">Auction Cars</Typography>
 
-          <TableContainer component={Paper} sx={{mt:2}}>
+          <TableContainer component={Paper} sx={{ mt: 2 }}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
@@ -65,8 +75,7 @@ export default function Auction() {
                 </TableRow>
               </TableHead>
               <TableBody>
-              {Products.filter(row => row.auction ==true).map(row => (
-               
+                {Products.filter((row) => row.auction == true).map((row) => (
                   <TableRow key={row.CarName}>
                     <TableCell component="th" scope="row">
                       <img src={row.Image} width={145} height={145} />
@@ -74,25 +83,21 @@ export default function Auction() {
                     <TableCell sx={{ fontWeight: 700, color: 'blue', fontSize: '18px' }}>
                       {row.CarModel}/{row.CarName}
                     </TableCell>
-                    <TableCell sx={{ fontWeight: 700, fontSize: '18px' }}>
-                      {row.Location}
-                    </TableCell>
-                    <TableCell
-                     
-                      sx={{ fontWeight: 700, color: row.Status ? 'green' : 'red', fontSize: '18px' }}
-                    >
+                    <TableCell sx={{ fontWeight: 700, fontSize: '18px' }}>{row.Location}</TableCell>
+                    <TableCell sx={{ fontWeight: 700, color: row.Status ? 'green' : 'red', fontSize: '18px' }}>
                       {row.Status ? 'Live Now' : 'Offline'}
                     </TableCell>
-                    <TableCell sx={{ fontSize: '18px',fontWeight:700 }}>
-                        <Stack direction='row' alignItems='center' spacing={1}>
-                      {row.Price}
-                      {row.Currency === 'dollar' ? (
-                        <Iconify icon={'bi:currency-dollar'} />
-                      ) : row.Currency === 'euro' ? (
-                        <Iconify icon={'ic:sharp-euro'} />
-                      ) : (
-                        '_'
-                      )}</Stack>
+                    <TableCell sx={{ fontSize: '18px', fontWeight: 700 }}>
+                      <Stack direction="row" alignItems="center" spacing={1}>
+                        {row.Price}
+                        {row.Currency === 'dollar' ? (
+                          <Iconify icon={'bi:currency-dollar'} />
+                        ) : row.Currency === 'euro' ? (
+                          <Iconify icon={'ic:sharp-euro'} />
+                        ) : (
+                          '_'
+                        )}
+                      </Stack>
                     </TableCell>
                     <TableCell>
                       <Button variant="contained" sx={{ backgroundColor: 'green' }}>

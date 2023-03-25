@@ -30,7 +30,7 @@ export default function Footer() {
           <Button sx={{color: '#9e9e9e',fontSize:'20px' }}>Privacy Policy</Button>
         </Grid>
         <Grid item xs={12} display="flex" justifyContent="center">
-          <Typography sx={{color:'#bdbdbd'}}>CopyRight@2022 Mahdi Code</Typography>
+          <Typography sx={{color:'#bdbdbd'}}>CopyRight@2022 Mohammad Code</Typography>
         </Grid>
       </Grid>
     </>

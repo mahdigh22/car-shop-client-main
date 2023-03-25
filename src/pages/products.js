@@ -105,7 +105,7 @@ export default function Page() {
 
           <Box sx={{ pt: 3 }}>
             <Grid container spacing={3}>
-              {Products.map((product, index) => (
+            {Products.filter(row => row.auction ==false).map((product, index) => (
                 <Grid item key={index} lg={3} md={6} xs={12}>
                   <ProductCard product={product} />
                 </Grid>

@@ -49,7 +49,7 @@ const Page = () => (
             </Stack>
             <PopularCars />
           </Grid>
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
+          {/* <Grid item lg={3} sm={6} xl={3} xs={12}>
             <Budget />
           </Grid>
           <Grid item xl={3} lg={3} sm={6} xs={12}>
@@ -71,8 +71,8 @@ const Page = () => (
             <LatestProducts sx={{ height: '100%' }} />
           </Grid>
           <Grid item lg={8} md={12} xl={9} xs={12}>
-            <LatestOrders />
-          </Grid>
+            <LatestOrders /> */}
+          {/* </Grid> */}
         </Grid>
       </Container>
     </Box>
