@@ -16,7 +16,7 @@ import PopularCars from 'src/components/popular-cars';
 const Page = () => (
   <>
     <Head>
-      <title>Dashboard | Material Kit</title>
+      <title>Dashboard  </title>
     </Head>
     <Box
       component="main"

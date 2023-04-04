@@ -95,7 +95,7 @@ export default function ContactUs() {
         </Alert>
       </Snackbar>
       <Head>
-        <title>contact | Material Kit</title>
+        <title>contact </title>
       </Head>
       <Stack direction="column" alignItems="center" sx={{ mt: 3, mb: 3 }}>
         <Stack direction="row">
